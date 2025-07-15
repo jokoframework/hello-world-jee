@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16 # Usaremos la versión 16 de PostgreSQL. Puedes cambiarla si necesitas otra.
+    container_name: holamundo_postgres # Un nombre claro para el contenedor de la DB
+    environment:
+      # --- ¡IMPORTANTE! CAMBIA ESTOS VALORES POR LOS QUE QUIERAS USAR ---
+      POSTGRES_DB: testdb        
+      POSTGRES_USER: testuser    
+      POSTGRES_PASSWORD: testpassword 
+      # ---------------------------------------------------------------
+    ports:
+      - "5432:5432" # Mapea el puerto 5432 del contenedor al puerto 5432 de tu máquina
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Un volumen para guardar los datos de forma persistente
+      - ./db:/docker-entrypoint-initdb.d/
+    restart: unless-stopped # Asegura que la DB se reinicie si el sistema se apaga
+volumes:
+  postgres_data: 
+
+
+
+
+
+
+# version: '3'
+
+# services:
+#   audit-pg:
+#     container_name: audit-pg-container
+#     image: postgres:12.6
+#     healthcheck:
+#       test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+#       timeout: 45s
+#       interval: 10s
+#       retries: 10
+#     restart: always
+#     environment:
+#       - POSTGRES_USER=root
+#       - POSTGRES_PASSWORD=password
+#       - APP_DB_USER=auditrest
+#       - APP_DB_PASS=auditrest
+#       - APP_DB_NAME=db_audit
+#     volumes:
+#       - ./db:/docker-entrypoint-initdb.d/
+#     ports:
+#       - 6432:5432
