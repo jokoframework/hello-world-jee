@@ -132,7 +132,7 @@ Abre el archivo `$TOMCAT_HOME/conf/context.xml` y agrega únicamente este recurs
 ```xml
 <Resource name="jdbc/PostgreSQLDS" auth="Container" type="javax.sql.DataSource"
        maxActive="100" maxIdle="30" maxWait="10000"
-       username="testuser" password="testpass"
+       username="testuser" password="testpassword"
        driverClassName="org.postgresql.Driver"
        url="jdbc:postgresql://localhost:5432/testdb"/>
 ```
@@ -279,9 +279,9 @@ Asegúrate de tener [Docker Desktop](https://www.docker.com/es-es/products/docke
 Tu aplicación Java debe configurarse para conectarse a PostgreSQL usando los siguientes detalles:
 * **Host:** `localhost`
 * **Puerto:** `5432`
-* **Nombre de la Base de Datos:** `holamundo_db` (¡Verifica tu `docker-compose.yml` por si lo cambiaste!)
-* **Usuario:** `holamundo_user` (¡Verifica tu `docker-compose.yml`!)
-* **Contraseña:** `una_contraseña_segura` (¡Verifica tu `docker-compose.yml`!)
+* **Nombre de la Base de Datos:** `testdb` 
+* **Usuario:** `testuser`
+* **Contraseña:** `testpassword`
 
 #### Para Detener la Base de Datos
 
