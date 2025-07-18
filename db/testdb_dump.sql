@@ -16,15 +16,6 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: testdb; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE testdb WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.UTF-8';
-
-
-ALTER DATABASE testdb OWNER TO postgres;
-
 \connect testdb
 
 SET statement_timeout = 0;
@@ -45,7 +36,7 @@ SET default_table_access_method = heap;
 --
 -- Name: usuarios; Type: TABLE; Schema: public; Owner: testuser
 --
-
+DROP TABLE IF EXISTS public.usuarios; 
 CREATE TABLE public.usuarios (
     id integer NOT NULL,
     nombre character varying(100) NOT NULL,
@@ -54,7 +45,6 @@ CREATE TABLE public.usuarios (
 
 
 ALTER TABLE public.usuarios OWNER TO testuser;
-
 --
 -- Name: usuarios_id_seq; Type: SEQUENCE; Schema: public; Owner: testuser
 --
@@ -122,7 +112,6 @@ GRANT ALL ON DATABASE testdb TO testuser;
 --
 
 GRANT ALL ON SCHEMA public TO testuser;
-
 
 --
 -- PostgreSQL database dump complete

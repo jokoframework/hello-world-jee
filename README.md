@@ -132,7 +132,7 @@ Abre el archivo `$TOMCAT_HOME/conf/context.xml` y agrega únicamente este recurs
 ```xml
 <Resource name="jdbc/PostgreSQLDS" auth="Container" type="javax.sql.DataSource"
        maxActive="100" maxIdle="30" maxWait="10000"
-       username="testuser" password="testpass"
+       username="testuser" password="testpassword"
        driverClassName="org.postgresql.Driver"
        url="jdbc:postgresql://localhost:5432/testdb"/>
 ```
@@ -243,6 +243,53 @@ hola-mundo-tomcat-jee/
 │               └── web.xml     # Configuración de la aplicación web
 └── target/                     # Archivos compilados y WAR generado
 ```
+
+## Configuración de la Base de Datos con Docker
+
+Este proyecto utiliza PostgreSQL para la gestión de datos, ejecutándose en un contenedor Docker para simplificar la configuración y evitar instalaciones locales.
+
+#### Requisitos
+
+Asegúrate de tener [Docker Desktop](https://www.docker.com/es-es/products/docker-desktop/) (para Windows/macOS) o [Docker Engine](https://docs.docker.com/engine/install/) (para Linux) instalado en tu sistema.
+
+#### Pasos para Iniciar PostgreSQL
+
+1.  **Navega a la carpeta de configuración de PostgreSQL:**
+    Abre tu terminal y ve al siguiente directorio dentro de tu proyecto:
+    ```bash
+    cd samples/postgresql-conf/
+    ```
+
+2.  **Inicia el contenedor de PostgreSQL:**
+    Desde esta carpeta, ejecuta el siguiente comando:
+    ```bash
+    docker compose up -d
+    ```
+    Este comando descargará la imagen de PostgreSQL (si no la tienes), creará el contenedor `holamundo_postgres` y lo iniciará en segundo plano.
+
+3.  **Verifica el estado del contenedor:**
+    Para asegurarte de que PostgreSQL esté corriendo, usa:
+    ```bash
+    docker compose ps
+    ```
+    Deberías ver el servicio `db` (PostgreSQL) listado como `running`.
+
+#### Detalles de Conexión para la Aplicación
+
+Tu aplicación Java debe configurarse para conectarse a PostgreSQL usando los siguientes detalles:
+* **Host:** `localhost`
+* **Puerto:** `5432`
+* **Nombre de la Base de Datos:** `testdb` 
+* **Usuario:** `testuser`
+* **Contraseña:** `testpassword`
+
+#### Para Detener la Base de Datos
+
+Cuando hayas terminado de trabajar, puedes detener el contenedor de PostgreSQL navegando a `samples/postgresql-conf/` y ejecutando:
+```bash
+docker compose down
+```
+_Probado con docker-compose en macOSX_
 
 ## 🤝 Contribuciones
 
